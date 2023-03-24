@@ -19,7 +19,7 @@ rstats_tbl <- rstats_original_tbl %>%
   select(post:comments)
 
 ## Visualization
-# This series of pipes creates our ggplot visualizing the scatterplot of the number of upvotes to the number of comments. I first thought I would jitter, bu no points are really overlapping, so jittering would only add confusion. I saved the figure to the figs folder so that it could be easily viewed on Github.
+# This series of pipes creates our ggplot visualizing the scatterplot of the number of upvotes to the number of comments. I first thought I would jitter, but no points are really overlapping, so jittering would only add confusion. I saved the figure to the figs folder so that it could be easily viewed on Github.
 (ggplot(rstats_tbl, aes(x = upvotes, y = comments)) +
   geom_point() +
   labs(x = "Upvotes", y = "Comments"))  %>%
