@@ -10,7 +10,11 @@ library(jsonlite)
 rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json", flatten = TRUE)
 rstats_original_tbl <- as_tibble(rstats_list$data$children)
 
-
+rstats_tbl <- rstats_original_tbl %>%
+  mutate(post = data.title,
+         upvotes = data.ups,
+         comments = data.num_comments) %>%
+  select(post:comments)
 
 # Visualization
 # ggplot here
