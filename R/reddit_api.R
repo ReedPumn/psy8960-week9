@@ -34,7 +34,8 @@ p_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[3]] %>%
   str_remove(pattern = "^(?-)0")
 
 ## Publication
-paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This value was not statistically significant.")
+paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This value ", if (p_value < .05) {"was"} else ("was not"), " statistically significant.")
+
 
 # What I generally need to do:
 # 5) Identify what parts of reddit are important
