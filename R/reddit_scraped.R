@@ -17,9 +17,11 @@ upvotes <- rstats_html %>%
   html_text()
 
 comments <- rstats_html %>%
-  html_elements(xpath = "//a[@class = 'bylink comments may-blank']") %>%
+  html_elements(xpath = "//a[@data-event-action = 'comments']") %>%
   html_text() %>%
-  str_remove(pattern = "\\s.+")
+  str_remove(pattern = "\\s.+") %>%
+  as.numeric() %>%
+  replace_na(0)
 
 rstats_tbl <- tibble(post, upvotes, comments)
 # Error here because there are only 22 comments, but 25 of each other variable.  
