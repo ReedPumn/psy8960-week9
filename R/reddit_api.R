@@ -6,7 +6,7 @@ library(jsonlite)
 
 ## Data Import and Cleaning
 
-# JSON downloaded on 03/23/2023 at 7pm.
+# JSON last downloaded on 03/23/2023 at 8:38pm
 rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json", flatten = TRUE)
 rstats_original_tbl <- as_tibble(rstats_list$data$children)
 
@@ -37,9 +37,7 @@ p_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[3]] %>%
 paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This value was not statistically significant.")
 
 # What I generally need to do:
-# 4) Make a ggplot based on that tibble and make a correlation
 # 5) Identify what parts of reddit are important
-# 6) Scrape reddit
 # 7) Read those parts of reddit into a tibble
 # 8) Make a ggplot based on that tibble and make a correlation
 # 9) Add descriptions explaining each of my steps in each document
