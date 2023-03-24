@@ -6,8 +6,9 @@ library(jsonlite)
 
 ## Data Import and Cleaning
 
-# JSON last downloaded on 03/23/2023 at 8:38pm. This downloads the JSON file so that we can later extract information from it.
+# JSON last downloaded on 03/24/2023 at 2:07pm. This downloads the JSON file so that we can later extract information from it.
 rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json", flatten = TRUE)
+
 # This line turns the extracted JSON into a legible tibble for easy analyses. I specified the path data to children because, using the JSON viewer Chrome extension, I could see that the information we want were nested under this path sequence.
 rstats_original_tbl <- as_tibble(rstats_list$data$children)
 
@@ -28,12 +29,15 @@ rstats_tbl <- rstats_original_tbl %>%
 ## Analysis
 # This line conducts a correlation test between the number of upvotes and the number of comments to see if they are significantly related.
 cor.test(rstats_tbl$upvotes, rstats_tbl$comments)
+
 # I chose to define the degrees of freedom, r-value, and p-value for the above statistical test to enable cleaner code in the Publications section. This line defines our degrees of freedom.
 df_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[2]]
+
 # This series of pipes defines our r-value produced by the above test. I had to round values and remove the leading zero to fit APA style.
 r_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[4]] %>%
   round(2) %>%
   str_remove(pattern = "^(?-)0")
+
 # This series of pipes defines our p-value produced by the above test. I had to round values and remove the leading zero to fit APA style.
 p_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[3]] %>%
   round(2) %>%
@@ -41,13 +45,5 @@ p_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[3]] %>%
   str_remove(pattern = "^(?-)0")
 
 ## Publication
-# This line takes the previously defined degrees of freedom, r-value, and p-value of our correlation test and combines them to form a coherent sentence interpreting the statistical test. The line is dynamic such that values and the "was/was not significant" text change to fit the statistics that were calculated in line 30.
+# This line takes the previously defined degrees of freedom, r-value, and p-value of our correlation test and combines them to form a coherent sentence interpreting the statistical test. The line is dynamic such that values and the "was/was not significant" text change to fit the statistics that were calculated in line 31.
 paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This test ", if (p_value < .05) {"was"} else ("was not"), " statistically significant.")
-
-
-# What I generally need to do:
-# 5) Identify what parts of reddit are important
-# 7) Read those parts of reddit into a tibble
-# 8) Make a ggplot based on that tibble and make a correlation
-# 9) Add descriptions explaining each of my steps in each document
-# 10) Check work in each document
