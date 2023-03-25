@@ -5,7 +5,7 @@ library(tidyverse)
 library(rvest)
 
 ## Data Import and Cleaning
-# Imported on 03/24/2023 at 4:42pm. This line imports the data in an html format to later be scraped.
+# Imported on 03/25/2023 at 12:33pm. This line imports the data in an html format to later be scraped.
 rstats_html <- read_html("https://old.reddit.com/r/rstats/")
 
 #This series of pipes creates our post variable by defining an xpath. I found this xpath and the xpaths for the next two variables by right-clicking the desired element and then clicking "inspect" to see its xpath information.
@@ -59,4 +59,3 @@ p_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[3]] %>%
 ## Publication
 # This line of text brings in our previously defined values to construct a dynamic sentence that interprets the correlation test. 
 paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This test ", if (p_value < .05) {"was"} else ("was not"), " statistically significant.")
-# Note: this output is not identical to the output I got in the JSON analyses. For some reason, my "upvotes" variable is not equivalent across analyses. Why is this? Am I drawing in different data?

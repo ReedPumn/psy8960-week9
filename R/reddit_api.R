@@ -6,7 +6,7 @@ library(jsonlite)
 
 ## Data Import and Cleaning
 
-# JSON last downloaded on 03/24/2023 at 4:42pm. This downloads the JSON file so that we can later extract information from it.
+# JSON last downloaded on 03/25/2023 at 12:33pm. This downloads the JSON file so that we can later extract information from it.
 rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json", flatten = TRUE)
 
 # This line turns the extracted JSON into a legible tibble for easy analyses. I specified the path data to children because, using the JSON viewer Chrome extension, I could see that the information we want were nested under this path sequence.
