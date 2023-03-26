@@ -6,7 +6,7 @@ library(jsonlite)
 
 ## Data Import and Cleaning
 
-# JSON last downloaded on 03/25/2023 at 12:33pm. This downloads the JSON file so that we can later extract information from it.
+# JSON last downloaded on 03/26/2023 at 9:28am. This downloads the JSON file so that we can later extract information from it.
 rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json", flatten = TRUE)
 
 # This line turns the extracted JSON into a legible tibble for easy analyses. I specified the path data to children because, using the JSON viewer Chrome extension, I could see that the information we want were nested under this path sequence.
@@ -45,5 +45,5 @@ p_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[3]] %>%
   str_remove(pattern = "^(?-)0")
 
 ## Publication
-# This line takes the previously defined degrees of freedom, r-value, and p-value of our correlation test and combines them to form a coherent sentence interpreting the statistical test. The line is dynamic such that values and the "was/was not significant" text change to fit the statistics that were calculated in line 31.
-paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This test ", if (p_value < .05) {"was"} else ("was not"), " statistically significant.")
+# This line of text brings in our previously defined values to construct a dynamic sentence that interprets the correlation test. It uses two verbs in one line, but only for added readability.
+paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This test ", if (as.numeric(p_value) < .05) {"was"} else {"was not"}, " statistically significant.")

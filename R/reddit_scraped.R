@@ -5,7 +5,7 @@ library(tidyverse)
 library(rvest)
 
 ## Data Import and Cleaning
-# Imported on 03/25/2023 at 12:33pm. This line imports the data in an html format to later be scraped.
+# Imported on 03/26/2023 at 9:28am. This line imports the data in an html format to later be scraped.
 rstats_html <- read_html("https://old.reddit.com/r/rstats/")
 
 #This series of pipes creates our post variable by defining an xpath. I found this xpath and the xpaths for the next two variables by right-clicking the desired element and then clicking "inspect" to see its xpath information.
@@ -57,5 +57,5 @@ p_value <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)[[3]] %>%
   str_remove(pattern = "^(?-)0")
 
 ## Publication
-# This line of text brings in our previously defined values to construct a dynamic sentence that interprets the correlation test. 
-paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This test ", if (p_value < .05) {"was"} else ("was not"), " statistically significant.")
+# This line of text brings in our previously defined values to construct a dynamic sentence that interprets the correlation test. It uses two verbs in one line, but only for added readability.
+paste0("The correlation between upvotes and comments was r(", df_value, ") = ", r_value, ", p = ", p_value, ". This test ", if (as.numeric(p_value) < .05) {"was"} else {"was not"}, " statistically significant.")
